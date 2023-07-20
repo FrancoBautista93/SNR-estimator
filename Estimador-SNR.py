@@ -8,16 +8,16 @@ import glob
 filenames=[]
 SNRs=[]
 
-for filename in glob.glob(os.path.join('C://Untref/Tesis/SNR/Audios/','*.wav')):
+for filename in glob.glob(os.path.join('audios_folder','*.wav')):
     filenames.append(os.path.basename(filename))
 
 for i in filenames:
-    signal, sr = librosa.load('C://Untref/Tesis/SNR/Audios/'+i, sr=None)
+    signal, sr = librosa.load('audios_folder'+i, sr=None)
     total_time=librosa.get_duration(signal, sr=sr)
 
 ############################## VAD's timestamps ##############################
 
-    segments = open('C://Untref/Tesis/SNR/Modelo propio/'+ os.path.splitext(i)[0] + '.txt','r')
+    segments = open('model_folder'+ os.path.splitext(i)[0] + '.txt','r')
     linessegments=segments.readlines()
     start_time=[]
     end_time=[]
@@ -110,7 +110,7 @@ for i in filenames:
 
 headers=['Filename','SNR (dB)']
 
-with open('SNR3.csv', 'w', newline="") as f:
+with open('snr.csv', 'w', newline="") as f:
     writer = csv.writer(f, delimiter=';')
     writer.writerow(headers)
     writer.writerows(zip(filenames, SNRs))
